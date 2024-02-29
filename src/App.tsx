@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Missing from "./components/Missing";
+import LandingPage from "./components/LandingPage";
+import MinesweeperApp from "./components/MinesweeperApp";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/">
+        <Route index element={<LandingPage />} />
+        <Route path="easy" element={<MinesweeperApp difficulty="easy" />} />
+        <Route path="medium" element={<MinesweeperApp difficulty="medium" />} />
+        <Route path="hard" element={<MinesweeperApp difficulty="hard" />} />
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 
