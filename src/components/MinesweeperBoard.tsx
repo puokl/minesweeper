@@ -5,11 +5,13 @@ import { CellType } from "../types/CellTypes";
 interface MinesweeperBoardProps {
   board: CellType[][];
   onCellClick: (row: number, col: number) => void;
+  onCellRightClick: (row: number, col: number) => void;
 }
 
 const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
   board,
   onCellClick,
+  onCellRightClick,
 }) => {
   const numCols = board[0].length;
   console.log("board", board);
@@ -32,6 +34,15 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
   }
   console.log("colsClass", colsClass);
   console.log("widthClass", widthClass);
+
+  const handleContextMenu = (
+    event: React.MouseEvent,
+    rowIndex: number,
+    colIndex: number
+  ) => {
+    event.preventDefault(); // Prevent the default context menu
+    onCellRightClick(rowIndex, colIndex);
+  };
   return (
     // <div className={`grid grid-cols-${numCols} max-w-${gridSize} m-4`}>
     <div className={`grid ${colsClass} ${widthClass} m-4`}>
@@ -41,6 +52,9 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
             key={`${rowIndex}-${colIndex}`}
             cell={cell}
             onClick={() => onCellClick(rowIndex, colIndex)}
+            onContextMenu={(event) =>
+              handleContextMenu(event, rowIndex, colIndex)
+            }
           />
         ))
       )}

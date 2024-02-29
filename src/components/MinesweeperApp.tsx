@@ -23,8 +23,6 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
 
     // Check if the clicked cell is already open or flagged
     if (!newBoard[row][col].isOpen && !newBoard[row][col].isFlagged) {
-      // Handle cell click logic based on your game rules
-
       // If the cell is a bomb, reveal all bombs and set game over
       if (newBoard[row][col].isBomb) {
         revealAllBombs(newBoard);
@@ -39,10 +37,16 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
           revealAdjacentEmptyCells(newBoard, row, col);
         }
 
-        // Update the state to trigger a re-render
         setBoard(newBoard);
       }
     }
+  };
+
+  const handleCellRightClick = (row: number, col: number) => {
+    // Handle right-click logic (flagging/unflagging)
+    const newBoard = [...board];
+    newBoard[row][col].isFlagged = !newBoard[row][col].isFlagged;
+    setBoard(newBoard);
   };
 
   const revealAllBombs = (board: CellType[][]) => {
@@ -99,7 +103,11 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
   return (
     <div>
       <h1>Minesweeper - {difficulty} level</h1>
-      <MinesweeperBoard board={board} onCellClick={handleCellClick} />
+      <MinesweeperBoard
+        board={board}
+        onCellClick={handleCellClick}
+        onCellRightClick={handleCellRightClick}
+      />
       {gameOver && <button onClick={restartGame}>Restart Game</button>}
     </div>
   );
