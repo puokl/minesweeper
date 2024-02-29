@@ -40,7 +40,7 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
     rowIndex: number,
     colIndex: number
   ) => {
-    event.preventDefault(); // Prevent the default context menu
+    event.preventDefault();
     onCellRightClick(rowIndex, colIndex);
   };
   return (
