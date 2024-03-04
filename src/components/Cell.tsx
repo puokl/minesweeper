@@ -17,7 +17,7 @@ const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
     w-8 h-8 border border-gray-300 text-center flex items-center justify-center text-black
     ${cell.isOpen ? "bg-gray-200" : "bg-gray-100"} ${
     cell.isFlagged ? "flagged" : ""
-  }
+  } shadow-md 
   `;
 
   return (

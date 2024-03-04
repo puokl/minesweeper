@@ -14,11 +14,7 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
   onCellRightClick,
 }) => {
   const numCols = board[0].length;
-  console.log("board", board);
-  console.log("numCols", numCols);
-
-  const gridSize = `${32 * numCols}px`;
-  console.log("gridSize", gridSize);
+  // console.log("board", board);
 
   let colsClass, widthClass;
 
@@ -32,8 +28,6 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
     colsClass = "grid-cols-20";
     widthClass = "w-[640px]";
   }
-  console.log("colsClass", colsClass);
-  console.log("widthClass", widthClass);
 
   const handleContextMenu = (
     event: React.MouseEvent,

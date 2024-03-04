@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MinesweeperBoard from "./MinesweeperBoard";
 import { generateBoard } from "./Board";
 import { CellType } from "../types/CellTypes";
+import { useNavigate } from "react-router-dom";
+import "../style.css";
 
 interface MinesweeperAppProps {
   difficulty: "easy" | "medium" | "hard";
@@ -24,6 +26,9 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
   const [flagCount, setFlagCount] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
   const [isGameWon, setIsGameWon] = useState(false);
+  const [showWinModal, setShowWinModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleCellClick = (row: number, col: number) => {
     if (gameOver) return;
@@ -45,14 +50,13 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
         if (newBoard[row][col].value === 0) {
           revealAdjacentEmptyCells(newBoard, row, col);
         }
-
+        setRevealedCount((prevCount) => prevCount + 1);
         setBoard(newBoard);
       }
     }
   };
 
   const handleCellRightClick = (row: number, col: number) => {
-    // Handle right-click logic (flagging/unflagging)
     const newBoard = [...board];
     // newBoard[row][col].isFlagged = !newBoard[row][col].isFlagged;
     const currentCell = newBoard[row][col];
@@ -111,7 +115,8 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
     const revealedNonBombCells = nonBombCells.filter((cell) => cell.isOpen);
 
     if (revealedNonBombCells.length === nonBombCells.length) {
-      alert("You won!");
+      // alert("You won!");
+      console.log("check win condition");
       setIsGameWon(true);
     }
   };
@@ -128,22 +133,28 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
       difficulty === "easy" ? 10 : difficulty === "medium" ? 30 : 40
     );
     setFlagCount(0);
-
     setGameOver(false);
     setIsGameWon(false);
+    setShowWinModal(false);
+  };
+
+  const goHome = () => {
+    navigate("/");
   };
 
   useEffect(() => {
     checkWinCondition();
+    console.log("check condition");
   }, [revealedCount]);
+
   useEffect(() => {
-    if (isGameWon) {
-      alert("You won!");
+    if (isGameWon && !gameOver) {
+      setShowWinModal(true);
     }
-  }, [isGameWon]);
+  }, [isGameWon, gameOver]);
   return (
-    <div>
-      <h1>Minesweeper - {difficulty} level</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1>MINESWEEPER - Level: {difficulty} </h1>
       <div className="info-panel">
         <div>Bombs: {bombCount}</div>
         <div>Flags: {flagCount}</div>
@@ -154,7 +165,45 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
         onCellClick={handleCellClick}
         onCellRightClick={handleCellRightClick}
       />
-      {gameOver && <button onClick={restartGame}>Restart Game</button>}
+
+      {gameOver && (
+        <div>
+          <p className="my-4 text-2xl font-bold text-red-500">Game Over</p>
+          <div className="flex gap-4 mt-4">
+            <button
+              onClick={restartGame}
+              className="font-bold hover:underline text-stone-700"
+            >
+              Play Again
+            </button>
+            <button
+              onClick={goHome}
+              className="font-bold hover:underline text-stone-700"
+            >
+              Home
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showWinModal && (
+        <div className="relative win-modal">
+          <p className="my-4 text-4xl font-bold text-red-500">You won!</p>
+
+          <div
+            className="confetti"
+            style={{ animation: "confetti-fall 1s ease-out infinite" }}
+          ></div>
+          <div className="flex gap-4 mt-4">
+            <button onClick={restartGame} className="font-bold hover:underline">
+              Play Again
+            </button>
+            <button onClick={goHome} className="font-bold hover:underline">
+              Home
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

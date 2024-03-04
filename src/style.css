@@ -1,0 +1,17 @@
+@keyframes confetti-fall {
+  0%,
+  100% {
+    transform: translateY(-100vh);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
+
+.confetti {
+  width: 2px;
+  height: 10px;
+  background-color: #ffdb58;
+  position: absolute;
+  animation: confetti-fall 1s ease-out infinite;
+}

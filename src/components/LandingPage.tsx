@@ -5,27 +5,35 @@ const LandingPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="mb-4 text-3xl font-bold">Minesweeper</h1>
-      <div className="mb-4">
-        <p className="text-center">
+      <div className="mb-4 text-center">
+        <p>
           Welcome to Minesweeper! This classic game challenges you to uncover
           cells without hitting any mines.
         </p>
-        <p className="text-center">
+        <p>
           Rules: Click on a cell to uncover it. Right-click to flag a potential
           mine. Uncover all non-mine cells to win.
         </p>
       </div>
-      <div>
-        <label htmlFor="level">Select Level:</label>
-        <ul>
+      <div className="text-lg">
+        <label htmlFor="level" className="block mb-2 text-xl font-semibold">
+          Select Level:
+        </label>
+        <ul className="flex flex-col gap-2">
           <li>
-            <Link to="easy">Easy</Link>
+            <Link to="easy" className="hover:underline hover:font-semibold">
+              Easy
+            </Link>
           </li>
           <li>
-            <Link to="medium">Medium</Link>
+            <Link to="medium" className="hover:underline hover:font-semibold">
+              Medium
+            </Link>
           </li>
           <li>
-            <Link to="hard">Hard</Link>
+            <Link to="hard" className="hover:underline hover:font-semibold">
+              Hard
+            </Link>
           </li>
         </ul>
       </div>
