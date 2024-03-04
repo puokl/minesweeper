@@ -139,7 +139,7 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
   };
 
   const goHome = () => {
-    navigate("/");
+    navigate("https://mastermind-topaz.vercel.app/");
   };
 
   useEffect(() => {
