@@ -38,7 +38,6 @@ const MinesweeperBoard: React.FC<MinesweeperBoardProps> = ({
     onCellRightClick(rowIndex, colIndex);
   };
   return (
-    // <div className={`grid grid-cols-${numCols} max-w-${gridSize} m-4`}>
     <div className={`grid ${colsClass} ${widthClass} m-4`}>
       {board.map((row, rowIndex) =>
         row.map((cell, colIndex) => (

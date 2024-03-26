@@ -3,6 +3,8 @@ import MinesweeperBoard from "./MinesweeperBoard";
 import { generateBoard } from "./Board";
 import { CellType } from "../types/CellTypes";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { RiHome2Line } from "react-icons/ri";
 import "../style.css";
 
 interface MinesweeperAppProps {
@@ -154,10 +156,26 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
   }, [isGameWon, gameOver]);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1>MINESWEEPER - Level: {difficulty} </h1>
-      <div className="info-panel">
-        <div>Bombs: {bombCount}</div>
-        <div>Flags: {flagCount}</div>
+      <Link
+        to="/"
+        className="absolute z-10 text-black top-4 right-4 bg-slate-200 rounded-xl"
+      >
+        <RiHome2Line size={32} />
+      </Link>
+      <h1 className="mb-4 text-2xl font-bold">MINESWEEPER</h1>
+      <div className="text-lg info-panel">
+        <div className="info-item">
+          <span className="mr-2 font-semibold">Level:</span>
+          <span>{difficulty}</span>
+        </div>
+        <div className="info-item">
+          <span className="mr-2 font-semibold">Bombs:</span>
+          <span>{bombCount}</span>
+        </div>
+        <div className="info-item">
+          <span className="mr-2 font-semibold">Flags:</span>
+          <span>{flagCount}</span>
+        </div>
       </div>
 
       <MinesweeperBoard
