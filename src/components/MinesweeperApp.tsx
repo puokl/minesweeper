@@ -157,7 +157,7 @@ const MinesweeperApp: React.FC<MinesweeperAppProps> = ({ difficulty }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Link
-        to="/"
+        to="https://mastermind-topaz.vercel.app"
         className="absolute z-10 text-black top-4 right-4 bg-slate-200 rounded-xl"
       >
         <RiHome2Line size={32} />
